@@ -23,6 +23,8 @@
     </mat-sidenav>
     <mat-sidenav-content>
       <div class="content">
+        <button (click)="notificationService.success('Success!!', {})">Success</button>
+        <app-notification></app-notification>
         <ng-content></ng-content>
       </div>
     </mat-sidenav-content>
