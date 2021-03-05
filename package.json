@@ -14,7 +14,7 @@
     "test": "ng test sormas",
     "test:ci": "ng test sormas --no-watch --no-progress --browsers=ChromeHeadlessCI",
     "e2e": "concurrently \"npm run start-proxy\" \"ng e2e\"",
-    "e2e:ci": "ng e2e --protractor-config=e2e/protractor-ci.conf.js",
+    "e2e:ci": "ng e2e --protractor-config=e2e/protractor-ci.conf.js --webdriverUpdate=false",
     "lint": "ng lint sormas --cache",
     "tslint": "tslint --project tsconfig.json",
     "lint:styles": "stylelint \"**/*.scss\"",
@@ -38,6 +38,7 @@
     "keycloak-js": "^12.0.1",
     "leaflet": "^1.7.1",
     "lint-staged": "^10.5.3",
+    "ng-table-virtual-scroll": "^1.3.5",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
