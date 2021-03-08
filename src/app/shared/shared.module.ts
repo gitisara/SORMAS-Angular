@@ -13,7 +13,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { TableComponent } from './table/table.component';
 import { PropertyGetterPipe } from './pipes/property-getter/property-getter.pipe';
 import { MenuComponent } from './layout/menu/menu.component';
-// import { NotificationModule } from './notifications/notification.module';
+import { NotificationModule } from './notification';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,7 @@ import { MenuComponent } from './layout/menu/menu.component';
     MaterialModule,
     HttpClientModule,
     TableVirtualScrollModule,
-    // NotificationModule,
+    NotificationModule,
   ],
   exports: [
     LayoutComponent,
@@ -43,7 +43,7 @@ import { MenuComponent } from './layout/menu/menu.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    // NotificationModule,
+    NotificationModule,
   ],
 })
 export class SharedModule {}

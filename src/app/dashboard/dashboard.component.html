@@ -1,3 +1,50 @@
 <h1 i18n="Dashboard header">Dashboard</h1>
+
+<div class="test-notification">
+  <div class="test-alert-notification">
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="
+        notificationService.warn('You have unsaved changes on this form', {
+          subject: 'Confirm navigation'
+        })
+      "
+    >
+      Informative alert
+    </button>
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="
+        notificationService.warn('You have unsaved changes on this form', {
+          subject: 'Confirm navigation'
+        })
+      "
+    >
+      Warn alert
+    </button>
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="
+        notificationService.warn('You have unsaved changes on this form', {
+          subject: 'Confirm navigation'
+        })
+      "
+    >
+      Error alert
+    </button>
+  </div>
+  <div class="test-banner-notification">
+    <button
+      mat-stroked-button
+      (click)="notificationService.info('Info!!', { mode: notificationMode.Banner })"
+    >
+      Info
+    </button>
+  </div>
+</div>
+
 <app-cards></app-cards>
 <app-map></app-map>
