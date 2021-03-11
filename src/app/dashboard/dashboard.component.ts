@@ -10,5 +10,10 @@ import { NotificationService } from '../shared/notification';
 export class DashboardComponent {
   notificationMode = NotificationMode;
 
-  constructor(public notificationService: NotificationService) {}
+  constructor(public notificationService: NotificationService) {
+    this.notificationService.onCloseNotification().subscribe((action) => {
+      // eslint-disable-next-line no-console
+      console.log(action);
+    });
+  }
 }

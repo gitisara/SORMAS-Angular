@@ -1,4 +1,3 @@
-﻿<div *ngFor="let alert of alerts" class="{{ cssClass(alert) }}">
-  <button mat-button class="close" (click)="removeAlert(alert)">&times;</button>
-  <span [innerHTML]="alert.message"></span>
-</div>
+﻿<!-- <app-notification-card *ngFor="let alert of alerts" [notification]="alert"></app-notification-card> -->
+
+<div *ngFor="let alert of alerts" [innerHTML]="alert.message" [class]="getClass(alert)"></div>

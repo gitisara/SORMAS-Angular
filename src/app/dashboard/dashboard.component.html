@@ -6,19 +6,25 @@
       mat-flat-button
       color="primary"
       (click)="
-        notificationService.warn('You have unsaved changes on this form', {
-          subject: 'Confirm navigation'
-        })
-      "
-    >
-      Informative alert
-    </button>
-    <button
-      mat-flat-button
-      color="primary"
-      (click)="
-        notificationService.warn('You have unsaved changes on this form', {
-          subject: 'Confirm navigation'
+        notificationService.alertWarn('You have unsaved changes on this form', {
+          subject: 'Confirm navigation',
+          actions: [
+            {
+              type: 'CANCEL',
+              text: 'Cancel',
+              action: 'cancel'
+            },
+            {
+              type: 'SECONDARY',
+              text: 'Discard',
+              action: 'discard'
+            },
+            {
+              type: 'PRIMARY',
+              text: 'Save',
+              action: 'confirm'
+            }
+          ]
         })
       "
     >
@@ -28,9 +34,38 @@
       mat-flat-button
       color="primary"
       (click)="
-        notificationService.warn('You have unsaved changes on this form', {
-          subject: 'Confirm navigation'
-        })
+        notificationService.alertInfo(
+          'Are you sure you want to delete this case?<br>This action cannot be reversed.',
+          {
+            subject: 'Confirm deletion',
+            actions: [
+              {
+                type: 'SECONDARY',
+                text: 'Cancel',
+                action: 'cancel'
+              },
+              {
+                type: 'PRIMARY',
+                text: 'Delete',
+                action: 'confirm'
+              }
+            ]
+          }
+        )
+      "
+    >
+      Informative alert
+    </button>
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="
+        notificationService.alertError(
+          '<ul><li>Date of report</li><li>Disease</li><li>Facility category region</li></ul>',
+          {
+            subject: 'Please check all required data'
+          }
+        )
       "
     >
       Error alert
@@ -39,9 +74,28 @@
   <div class="test-banner-notification">
     <button
       mat-stroked-button
-      (click)="notificationService.info('Info!!', { mode: notificationMode.Banner })"
+      (click)="
+        notificationService.bannerInfo(
+          'This is a push notification of banner type, with all sorts of usefull information'
+        )
+      "
     >
-      Info
+      Info banner
+    </button>
+    <button mat-stroked-button (click)="notificationService.bannerSuccess('Everything is ok :)')">
+      Success banner
+    </button>
+    <button
+      mat-stroked-button
+      (click)="notificationService.bannerWarn('A friendly warning... or else!')"
+    >
+      Warn banner
+    </button>
+    <button
+      mat-stroked-button
+      (click)="notificationService.bannerError('Just a push error notification')"
+    >
+      Error banner
     </button>
   </div>
 </div>

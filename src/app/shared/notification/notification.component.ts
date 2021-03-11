@@ -3,13 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import {
-  NotificationMode,
-  NotificationType,
-  NOTIFICATION_AUTO_CLOSE_DELAY,
-} from 'src/app/app.constants';
+import { NotificationMode, NOTIFICATION_AUTO_CLOSE_DELAY, IconsMap } from 'src/app/app.constants';
+import { DialogService } from '../dialog/_services/dialog.service';
 import { Notification } from './notification.model';
-import { NotificationCardComponent } from './_components/notification-card/notification-card.component';
 import { NotificationService } from './_services/notification.service';
 
 @Component({
@@ -20,7 +16,6 @@ import { NotificationService } from './_services/notification.service';
 export class NotificationComponent implements OnInit, OnDestroy {
   @Input() id = 'default-alert';
   @Input() autoCloseDelay = NOTIFICATION_AUTO_CLOSE_DELAY;
-  @Input() mode: NotificationMode = NotificationMode.Alert;
 
   alerts: Notification[] = [];
   alertSubscription!: Subscription;
@@ -29,11 +24,12 @@ export class NotificationComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private alertService: NotificationService,
+    private dialogService: DialogService,
     public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    this.alertSubscription = this.alertService.onAlert(this.id).subscribe((alert) => {
+    this.alertSubscription = this.alertService.onNotification(this.id).subscribe((alert) => {
       if (!alert.message) {
         this.alerts = [];
         return;
@@ -67,43 +63,33 @@ export class NotificationComponent implements OnInit, OnDestroy {
     this.alerts = this.alerts.filter((x) => x !== alert);
   }
 
-  cssClass(alert: Notification): string {
-    if (!alert) {
-      return '';
+  pushAlert(alert: Notification): void {
+    this.dialogService.open({
+      dialogType: alert.type,
+      title: alert.subject,
+      titleIcon: IconsMap[alert.type],
+      message: alert.message,
+      actions: alert.actions,
+    });
+
+    this.dialogService.confirmed().subscribe((action) => {
+      this.alertService.actionRequired(action);
+    });
+  }
+
+  pushBanner(banner: Notification): void {
+    this.alerts.unshift(banner);
+
+    if (banner.autoClose) {
+      setTimeout(() => this.removeAlert(banner), this.autoCloseDelay);
     }
+  }
 
-    const classes = ['alert', 'alert-dismissable'];
+  getClass(notification: Notification): string {
+    const classes = ['banner'];
 
-    const alertTypeClass = {
-      [NotificationType.Success]: 'alert-success',
-      [NotificationType.Error]: 'alert-error',
-      [NotificationType.Info]: 'alert-info',
-      [NotificationType.Warning]: 'alert-warning',
-    };
-
-    classes.push(alertTypeClass[alert.type]);
+    classes.push(notification.type);
 
     return classes.join(' ');
-  }
-
-  pushAlert(alert: Notification): void {
-    const dialogRef = this.dialog.open(NotificationCardComponent, {
-      data: {
-        ...alert,
-      },
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      // eslint-disable-next-line no-console
-      console.log(`Dialog result: ${result}`);
-    });
-  }
-
-  pushBanner(alert: Notification): void {
-    this.alerts.push(alert);
-
-    if (alert.autoClose) {
-      setTimeout(() => this.removeAlert(alert), this.autoCloseDelay);
-    }
   }
 }

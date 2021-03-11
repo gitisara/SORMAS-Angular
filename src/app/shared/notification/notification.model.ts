@@ -6,6 +6,7 @@ export class Notification {
   subject?: string;
   message!: string;
   mode: NotificationMode = NotificationMode.Alert;
+  actions?: [];
   autoClose = true;
   fade = true;
 

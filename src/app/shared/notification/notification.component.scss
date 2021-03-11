@@ -1,1 +1,49 @@
-/* stylelint-disable */
+@use '/src/variables.scss' as *;
+
+:host {
+  position: absolute;
+  z-index: 999;
+  top: 92px;
+  right: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  > * {
+    flex: 0 1 auto;
+  }
+}
+
+.banner {
+  max-width: 436px;
+  padding: 2em;
+  margin-bottom: 1em;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 24px 38px rgba(0, 0, 0, 0.12);
+  font-size: 1rem;
+}
+
+.notification-success {
+  background-color: map-get($sormas-success, 50);
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.14), 0 1px 10px rgba(0, 0, 0, 0.12),
+    0 2px 4px -1px rgba(0, 0, 0, 0.2);
+}
+
+.notification-info {
+  background-color: map-get($sormas-primary, 50);
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.14), 0 1px 10px rgba(0, 0, 0, 0.12),
+    0 2px 4px -1px rgba(0, 0, 0, 0.2);
+}
+
+.notification-warning {
+  background-color: map-get($sormas-warn, 50);
+  box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12),
+    0 11px 15px -7px rgba(0, 0, 0, 0.2);
+}
+
+.notification-error {
+  background-color: map-get($sormas-alert, 50);
+  box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12),
+    0 11px 15px -7px rgba(0, 0, 0, 0.2);
+}

@@ -14,6 +14,7 @@ import { TableComponent } from './table/table.component';
 import { PropertyGetterPipe } from './pipes/property-getter/property-getter.pipe';
 import { MenuComponent } from './layout/menu/menu.component';
 import { NotificationModule } from './notification';
+import { DialogModule } from './dialog';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { NotificationModule } from './notification';
     HttpClientModule,
     TableVirtualScrollModule,
     NotificationModule,
+    DialogModule,
   ],
   exports: [
     LayoutComponent,
