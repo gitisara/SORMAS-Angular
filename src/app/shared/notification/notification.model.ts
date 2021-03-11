@@ -8,7 +8,7 @@ export class Notification {
   mode: NotificationMode = NotificationMode.Alert;
   actions?: [];
   autoClose = true;
-  fade = true;
+  fade?: boolean;
 
   constructor(init?: Partial<Notification>) {
     Object.assign(this, init);

@@ -16,6 +16,7 @@ import { NotificationService } from './_services/notification.service';
 export class NotificationComponent implements OnInit, OnDestroy {
   @Input() id = 'default-alert';
   @Input() autoCloseDelay = NOTIFICATION_AUTO_CLOSE_DELAY;
+  @Input() fade = true;
 
   alerts: Notification[] = [];
   alertSubscription!: Subscription;
@@ -55,8 +56,17 @@ export class NotificationComponent implements OnInit, OnDestroy {
     this.routeSubscription.unsubscribe();
   }
 
-  removeAlert(alert: Notification): void {
+  removeBanner(alert: Notification): void {
     if (!this.alerts.includes(alert)) {
+      return;
+    }
+
+    if (this.fade) {
+      // eslint-disable-next-line no-param-reassign
+      alert.fade = true;
+      setTimeout(() => {
+        this.alerts = this.alerts.filter((x) => x !== alert);
+      }, 250);
       return;
     }
 
@@ -81,14 +91,18 @@ export class NotificationComponent implements OnInit, OnDestroy {
     this.alerts.unshift(banner);
 
     if (banner.autoClose) {
-      setTimeout(() => this.removeAlert(banner), this.autoCloseDelay);
+      setTimeout(() => this.removeBanner(banner), this.autoCloseDelay);
     }
   }
 
   getClass(notification: Notification): string {
-    const classes = ['banner'];
+    const classes = ['banner', 'fadeIn'];
 
     classes.push(notification.type);
+
+    if (notification.fade) {
+      classes.push('fadeOut');
+    }
 
     return classes.join(' ');
   }
