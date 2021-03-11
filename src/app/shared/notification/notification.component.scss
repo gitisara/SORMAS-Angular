@@ -53,8 +53,8 @@
     0% {
       transform: scale(0);
     }
-    80% {
-      transform: scale(1.1);
+    86% {
+      transform: scale(1.08);
     }
     100% {
       transform: scale(1);
@@ -62,20 +62,21 @@
   }
 
   @keyframes fadeout {
-    from {
+    0% {
       opacity: 1;
+      transform: scale(1);
     }
-    to {
+    12% {
+      transform: scale(1.08);
+    }
+    100% {
       opacity: 0;
+      transform: scale(0.2);
     }
-  }
-
-  .banner {
-    animation: 0.25s;
   }
 
   .fadeIn {
-    animation: fadein 0.25s;
+    animation: fadein 0.16s;
   }
 
   .fadeOut {
